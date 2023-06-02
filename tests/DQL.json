@@ -1,0 +1,69 @@
+{
+    "SELECT": [
+        "genero",
+        "avg(idade)",
+        "count(*)"
+    ],
+    "FROM": {
+        "TABLE": [
+            "Pessoas",
+            "p",
+            "LEFT"
+        ],
+        "JOIN": [
+            [
+                "Trabalho",
+                "t",
+                "ON",
+                "(p.id",
+                "=",
+                "t.pessoa)",
+                "RIGHT"
+            ],
+            [
+                "Endereco",
+                "e",
+                "ON",
+                "(p.id",
+                "=",
+                "e.pessoa)"
+            ]
+        ]
+    },
+    "WHERE": {
+        "AND": [
+            [
+                "estado_civil",
+                "NOT",
+                "LIKE",
+                "'%ado'"
+            ],
+            [
+                "uf",
+                "=",
+                "'SP'"
+            ]
+        ],
+        "OR": [
+            [
+                "salario",
+                ">",
+                "5000"
+            ],
+            [
+                "departamento",
+                "IN",
+                "(14",
+                "25",
+                "38)"
+            ]
+        ]
+    },
+    "GROUP BY": [
+        "genero"
+    ],
+    "ORDER BY": [
+        "3",
+        "DESC"
+    ]
+}

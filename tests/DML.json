@@ -1,0 +1,35 @@
+{
+    "Pessoa": {
+        "INSERT": [
+            {
+                "id": 51,
+                "nome": "Kely Creuza",
+                "cpf": "619.809.585-13",
+                "genero": "F",
+                "idade": 19
+            }
+        ]
+    },
+    "Agenda": {
+        "DELETE": [
+            {
+                "WHERE": [
+                    "paciente = 51"
+                ]
+            }
+        ],
+        "UPDATE": [
+            {
+                "hora": "09:30",
+                "paciente": 460
+            },
+            {
+                "WHERE": [
+                    "dia = '2023-04-23'",
+                    "AND",
+                    "medico = 222"
+                ]
+            }
+        ]
+    }
+}

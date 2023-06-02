@@ -1,0 +1,79 @@
+{
+    "Pessoa": {
+        "id": {
+            "type": "INTEGER",
+            "auto_inc": true,
+            "auto_inc_type": "MS Sql Server",
+            "params": [
+                "1",
+                "1"
+            ],
+            "constraints": [
+                "PRIMARY KEY"
+            ]
+        },
+        "nome": {
+            "type": "VARCHAR",
+            "params": [
+                "30"
+            ]
+        },
+        "cpf": {
+            "type": "CHAR",
+            "params": [
+                "11"
+            ],
+            "constraints": [
+                "UNIQUE"
+            ]
+        }
+    },
+    "Agenda": {
+        "dia": {
+            "type": "DATE"
+        },
+        "hora": {
+            "type": "CHAR",
+            "params": [
+                "5"
+            ]
+        },
+        "medico": {
+            "type": "INTEGER",
+            "constraints": [
+                "FOREIGN KEY",
+                "REFERENCES"
+            ],
+            "fk_table": "Pessoa",
+            "params": [
+                "id"
+            ]
+        },
+        "paciente": {
+            "type": "INTEGER",
+            "constraints": [
+                "FOREIGN KEY",
+                "REFERENCES"
+            ],
+            "fk_table": "Pessoa",
+            "params": [
+                "id"
+            ]
+        },
+        "custo": {
+            "type": "FLOAT",
+            "constraints": [
+                "NOT NULL"
+            ]
+        },
+        "": {
+            "constraints": [
+                "PRIMARY KEY"
+            ],
+            "params": [
+                "dia",
+                "hora"
+            ]
+        }
+    }
+}
