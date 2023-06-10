@@ -1,17 +1,17 @@
 from const import (
     FLD_VALUES, ELEMENTS, FIND_TOKEN, VALID,
-    PATTERN, NORMALIZE, GET_TOKENS, WHERE_INFO
+    NORMALIZE, GET_TOKENS, WHERE_INFO
 )
 
-INS_KEYWORDS = PATTERN('INSERT|INTO|VALUES')
-UPD_KEYWORDS = PATTERN('UPDATE|SET|WHERE')
-DEL_KEYWORDS = PATTERN('DELETE|FROM|WHERE')
+INS_KEYWORDS = 'INSERT|INTO|VALUES'
+UPD_KEYWORDS = 'UPDATE|SET|WHERE'
+DEL_KEYWORDS = 'DELETE|FROM|WHERE'
 
 
 def parse_insert(tokens: list, target: dict):
     import json
     table, fields, values = [
-        t for t in tokens if t not in INS_KEYWORDS and VALID(t, '')
+        t for t in tokens if t.upper() not in INS_KEYWORDS and VALID(t, '')
     ]
     target.setdefault(table, {}).setdefault('INSERT', []).append(
         FLD_VALUES(ELEMENTS(fields), ELEMENTS(values))
@@ -46,7 +46,7 @@ def command_parser(query: str, commands: dict=DML_COMMANDS) -> dict:
     result = {}
     query = NORMALIZE(query)
     for block in query.split(';'):
-        keywords = PATTERN('|'.join(commands.keys()))
+        keywords = '|'.join(commands.keys())
         tokens = GET_TOKENS(block, keywords)
         cmd = tokens[0].upper()
         keywords, parse_func = commands[cmd]

@@ -1,6 +1,5 @@
 from const import (
-    PATTERN, NORMALIZE,
-    ELEMENTS, GET_TOKENS
+    NORMALIZE, ELEMENTS, GET_TOKENS
 )
 
 
@@ -9,20 +8,18 @@ AUTO_INC_BY_DATABASES = {
     'AUTO_INCREMENT': 'mySql',
     'SERIAL': 'PostgreSql'
 }
-FIELD_TYPES = PATTERN('INTEGER|VARCHAR|CHAR|DATE|FLOAT')
-AUTO_INC_TYPES = PATTERN(
-    '|'.join(AUTO_INC_BY_DATABASES.keys())
-)
-RELATIONS = PATTERN('FOREIGN KEY|REFERENCES')
-CONSTRAINTS = PATTERN('PRIMARY KEY|NOT NULL|UNIQUE') + '|' + RELATIONS
+FIELD_TYPES = 'INTEGER|VARCHAR|CHAR|DATE|FLOAT'
+AUTO_INC_TYPES = '|'.join(AUTO_INC_BY_DATABASES.keys())
+RELATIONS = 'FOREIGN KEY|REFERENCES'
+CONSTRAINTS = 'PRIMARY KEY|NOT NULL|UNIQUE' + '|' + RELATIONS
 KEYWORDS = f'{FIELD_TYPES}|{CONSTRAINTS}|{AUTO_INC_TYPES}|\(|,|\)|/\*|\*/'
-TO_LIST = lambda types: types.split('|')
+TO_LIST = lambda types: '{}|{}'.format(types, types.lower()).split('|')
 
 
 def create_table_parser(query: str) -> dict:
     result = {}
     query = NORMALIZE(query)
-    for block in ELEMENTS(query, 'CREATE TABLE|create table'):
+    for block in ELEMENTS(query, 'CREATE TABLE'):
         tokens = GET_TOKENS(block, KEYWORDS)
         info, fk_table = {}, False
         table, field = '', ''

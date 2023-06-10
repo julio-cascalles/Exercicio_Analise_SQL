@@ -4,19 +4,20 @@ from DDL import create_table_parser
 from DML import command_parser
 from DQL import query_parser
 
-PATH_FMT = os.path.join(os.getcwd(), 'sql/tests/{}.{}')
+PATH_FMT = os.path.join(os.path.dirname(__file__), 'tests', '{}.{}')
 
 
 def run(prefix: str, func: callable) -> bool:
     data, text = {}, ''
     for ext in ['json', 'sql']:
         path = PATH_FMT.format(prefix, ext)
-        with open(path, 'r') as file:    
+        with open(path, 'r') as file:
             if ext == 'json':
                 data = json.load(file)
             else:
                 text = file.read()
-    return func(text) == data
+    result = func(text)
+    return result == data
 
 
 def test_DDL():
